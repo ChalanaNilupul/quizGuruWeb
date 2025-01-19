@@ -12,11 +12,48 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <script src="./js/nav.js"></script>
 </head>
 
 <body>
 
-    <?php include_once "./url/navBar.php" ?>
+    <div class="mainNav">
+        <div class="navIn">
+            <a onclick="home()" href="" id="Logo"><img src="../assets/logo.png" alt=""></a>
+            <ul id="dokstop">
+                <li><a href="./index.php" class="hM" onclick="menu()">Home</a></li>
+                <li><a href="#about" class="aM" onclick="menu()">About</a></li>
+            </ul>
+            <div id="menu" onclick="menu()">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobNav" id="mobNav">
+        <div class="links" id="mobLinks">
+            <ul>
+                <li><a href="./index.php" class="hM" onclick="menu()">Home</a></li>
+                <li><a href="#about" class="aM" onclick="menu()">About</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+
+
+        $(document).ready(function () {
+
+
+
+
+        });
+
+    </script>
 
     <div class="container">
         <div class="cIn">
@@ -61,7 +98,10 @@
     </div>
 
 
-    <?php include_once "./url/footer.php" ?>
+    <footer>
+        <p>© 2024 Chalana Nilupul | Powered by <a href="https://www.bycfs.com/src/vixo/client/src/" target="new">VIXO</a></p>
+        <p>Contact : <a href="mailto:senarathnacn@gmail.com">senarathnacn@gmail.com</a></p>
+    </footer>
 
 </body>
 
