@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Guru</title>
-    <link rel="shortcut icon" href="../assets/icon.ico" />
+    <link rel="shortcut icon" href="./assets/icon.ico" />
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
 
-    <?php include_once "./navBar.php" ?>
+    <?php include_once "./url/navBar.php" ?>
 
     <div class="container">
         <div class="cIn">
@@ -24,11 +24,11 @@
                 <div class="lIn">
                     <h1>Quiz Guru</h1>
                     <p>Test your knowledge, unlock better grades, and master your subjects all in one app!</p>
-                    <a href="../assets/app-release.apk"><button>Download APK</button></a>
+                    <a href="./assets/app-release.apk"><button>Download APK</button></a>
                 </div>
             </div>
             <div class="right">
-                <img src="../assets/phone.png" alt="">
+                <img src="./assets/phone.png" alt="">
                 <!-- <div class="blob"></div> -->
             </div>
 
@@ -61,7 +61,7 @@
     </div>
 
 
-    <?php include_once "./footer.php" ?>
+    <?php include_once "./url/footer.php" ?>
 
 </body>
 
