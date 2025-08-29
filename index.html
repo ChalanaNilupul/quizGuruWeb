@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,6 +60,10 @@
             background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .logo img {
+            width: 70px;
         }
 
         .nav-links {
@@ -389,6 +394,7 @@
         .social-links {
             display: flex;
             gap: 1rem;
+            margin-top: 15px;
         }
 
         .social-links a {
@@ -433,6 +439,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -444,6 +451,7 @@
                 opacity: 0;
                 transform: translateX(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -451,8 +459,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         /* Responsive */
@@ -495,19 +510,197 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .screenshots {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--light-blue) 0%, white 50%, var(--light-orange) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screenshots::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="%23546cfc" opacity="0.05"/><circle cx="90" cy="20" r="1" fill="%23f39000" opacity="0.05"/><circle cx="30" cy="80" r="1" fill="%23546cfc" opacity="0.05"/><circle cx="70" cy="90" r="1" fill="%23f39000" opacity="0.05"/></svg>') repeat;
+        }
+
+        .screenshots h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .screenshots-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .screenshot-item {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .screenshot-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .screenshot-wrapper:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .screenshot-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .screenshot-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 2rem 1.5rem 1.5rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .screenshot-wrapper:hover .screenshot-overlay {
+            transform: translateY(0);
+        }
+
+        .screenshot-wrapper:hover .screenshot-img {
+            transform: scale(1.05);
+        }
+
+        .screenshot-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .screenshot-info p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .screenshots-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            transform: scale(1.2);
+        }
+
+        .nav-dot:hover {
+            background: var(--primary-blue);
+            transform: scale(1.1);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .screenshots-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .screenshot-wrapper:hover {
+                transform: translateY(-5px);
+            }
+
+            .screenshot-overlay {
+                transform: translateY(0);
+                background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            }
+        }
+
+        /* Animation for screenshot items */
+        .screenshot-item {
+            animation: slideInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .screenshot-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .screenshot-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .screenshot-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .screenshot-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
+
 <body>
     <header>
         <nav class="container">
-            <div class="logo">Quiz Guru</div>
+            <div class="logo"><a onclick="home()" href="" id="Logo"><img src="../assets/logo.png" alt=""></a></div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <a href="#launch" class="cta-btn">Launch App</a>
+            <!-- <a href="#launch" class="cta-btn">Launch App</a> -->
         </nav>
     </header>
 
@@ -515,10 +708,11 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>AI-Powered Quiz Generation</h1>
-                    <p>Create personalized quizzes instantly with our advanced AI technology. Perfect for students, teachers, and anyone looking to test their knowledge.</p>
+                    <h1>Quiz Guru</h1>
+                    <p>Create personalized quizzes instantly with our advanced AI technology. Interactive learning,
+                        anytime, anywhere.</p>
                     <div class="hero-buttons">
-                        <a href="#launch" class="btn-primary">Start Creating Quizzes</a>
+                        <a href="#launch" class="btn-primary">Download APK</a>
                         <a href="#features" class="btn-secondary">Learn More</a>
                     </div>
                 </div>
@@ -557,18 +751,26 @@
                 </div>
                 <div class="feature-card scroll-reveal">
                     <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>PDF Summarization</h3>
+                    <p>Upload PDFs and get AI-generated short notes for quick and easy revision.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Chatbot</h3>
+                    <p>Get study tips, quiz explanations, and mental health support via the AI assistant.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
                     <h3>Multiple Grade Levels</h3>
                     <p>Support for all educational levels from elementary to advanced university courses.</p>
                 </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Performance Analytics</h3>
-                    <p>Track progress with detailed analytics and insights to improve learning outcomes.</p>
-                </div>
+
                 <div class="feature-card scroll-reveal">
                     <div class="feature-icon">
                         <i class="fas fa-mobile-alt"></i>
@@ -583,14 +785,96 @@
                     <h3>Instant Generation</h3>
                     <p>Generate comprehensive quizzes in seconds, not hours.</p>
                 </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-share-alt"></i>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="screenshots" class="screenshots">
+        <div class="container">
+            <h2 class="scroll-reveal">See Quiz Guru in Action</h2>
+            <p class="section-subtitle scroll-reveal">Experience the power of AI-driven quiz generation through our
+                intuitive interface</p>
+
+            <div class="screenshots-container">
+                <div class="screenshot-item scroll-reveal">
+                    <div class="screenshot-wrapper">
+                        <img src="./assets/1.png" alt="Quiz Dashboard Screenshot" class="screenshot-img">
+                        <div class="screenshot-overlay">
+                            <div class="screenshot-info">
+                                <h4>Dashboard Overview</h4>
+                                <p>Manage all your quizzes in one place with our clean, intuitive dashboard</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Easy Sharing</h3>
-                    <p>Share quizzes with students or colleagues with just one click.</p>
+                </div>
+
+                <div class="screenshot-item scroll-reveal">
+                    <div class="screenshot-wrapper">
+                        <img src="./assets/5.png" alt="Quiz Generator Screenshot" class="screenshot-img">
+                        <div class="screenshot-overlay">
+                            <div class="screenshot-info">
+                                <h4>AI Quiz Generator</h4>
+                                <p>Simply select your subject and grade level, and watch the magic happen</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="screenshot-item scroll-reveal">
+                    <div class="screenshot-wrapper">
+                        <img src="./assets/4.png" alt="Live Quiz Screenshot" class="screenshot-img">
+                        <div class="screenshot-overlay">
+                            <div class="screenshot-info">
+                                <h4>Interactive Quiz Taking</h4>
+                                <p>Engaging quiz interface with real-time feedback and progress tracking</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="screenshot-item scroll-reveal">
+                    <div class="screenshot-wrapper">
+                        <img src="./assets/2.png" alt="Analytics Screenshot" class="screenshot-img">
+                        <div class="screenshot-overlay">
+                            <div class="screenshot-info">
+                                <h4>Leaderboard</h4>
+                                <p>Compete with other users and learn in a fun way</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screenshot-item scroll-reveal">
+                    <div class="screenshot-wrapper">
+                        <img src="./assets/7.png" alt="PDF Summarization Screenshot" class="screenshot-img">
+                        <div class="screenshot-overlay">
+                            <div class="screenshot-info">
+                                <h4>PDF Summarization</h4>
+                                <p>Upload PDFs and receive AI-generated short notes for quick revision.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screenshot-item scroll-reveal">
+                    <div class="screenshot-wrapper">
+                        <img src="./assets/6.png" alt="AI Chatbot Screenshot" class="screenshot-img">
+                        <div class="screenshot-overlay">
+                            <div class="screenshot-info">
+                                <h4>AI Chatbot</h4>
+                                <p>Get study tips and mental health support via the AI assistant.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- <div class="screenshots-navigation">
+                <button class="nav-dot active" data-slide="0"></button>
+                <button class="nav-dot" data-slide="1"></button>
+                <button class="nav-dot" data-slide="2"></button>
+                <button class="nav-dot" data-slide="3"></button>
+            </div> -->
         </div>
     </section>
 
@@ -627,7 +911,8 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Quiz Guru</h4>
-                    <p>Revolutionizing education with AI-powered quiz generation. Making learning interactive and fun for everyone.</p>
+                    <p>Revolutionizing education with AI-powered quiz generation. Making learning interactive and fun
+                        for everyone.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-facebook"></i></a>
@@ -652,12 +937,12 @@
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <p><i class="fas fa-envelope"></i> support@quizguru.com</p>
-                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                    <p><i class="fas fa-map-marker-alt"></i> San Francisco, CA</p>
+                    <p><i class="fas fa-phone"></i> +94 XXXXXXXXX</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Srilanka</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Quiz Guru. All rights reserved.</p>
+                <p>&copy; 2025 Quiz Guru. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -709,17 +994,17 @@
 
         // Quiz mockup interactions
         document.querySelectorAll('.quiz-option').forEach(option => {
-            option.addEventListener('click', function() {
+            option.addEventListener('click', function () {
                 // Remove active class from all options
                 document.querySelectorAll('.quiz-option').forEach(opt => {
                     opt.style.background = 'white';
                     opt.style.borderColor = '#e0e0e0';
                 });
-                
+
                 // Add active style to clicked option
                 this.style.background = '#e8f0ff';
                 this.style.borderColor = '#546cfc';
-                
+
                 // Simulate next question after delay
                 setTimeout(() => {
                     const questions = [
@@ -736,10 +1021,10 @@
                             options: ["A) 300,000 km/s", "B) 150,000 km/s", "C) 500,000 km/s", "D) 200,000 km/s"]
                         }
                     ];
-                    
+
                     const randomQ = questions[Math.floor(Math.random() * questions.length)];
                     document.querySelector('.quiz-question').innerHTML = `<strong>Question ${Math.floor(Math.random() * 8) + 2} of 10:</strong><br>${randomQ.text}`;
-                    
+
                     const optionElements = document.querySelectorAll('.quiz-option');
                     randomQ.options.forEach((option, index) => {
                         if (optionElements[index]) {
@@ -748,18 +1033,18 @@
                             optionElements[index].style.borderColor = '#e0e0e0';
                         }
                     });
-                    
+
                     // Update timer
                     const timerElement = document.querySelector('.quiz-timer');
                     const currentTime = timerElement.textContent.split(':');
                     let minutes = parseInt(currentTime[0]);
                     let seconds = parseInt(currentTime[1]) - Math.floor(Math.random() * 10) - 5;
-                    
+
                     if (seconds < 0) {
                         minutes--;
                         seconds = 60 + seconds;
                     }
-                    
+
                     if (minutes >= 0) {
                         timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
                     }
@@ -769,7 +1054,7 @@
 
         // Launch app button functionality
         document.querySelectorAll('a[href="#launch"]').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', function (e) {
                 e.preventDefault();
                 // Add your app launch logic here
                 alert('Quiz Guru app is launching soon! Stay tuned for updates.');
@@ -789,9 +1074,9 @@
             particle.style.top = window.innerHeight + 'px';
             particle.style.pointerEvents = 'none';
             particle.style.zIndex = '1';
-            
+
             document.body.appendChild(particle);
-            
+
             const animation = particle.animate([
                 { transform: 'translateY(0px)', opacity: 0.3 },
                 { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
@@ -799,12 +1084,55 @@
                 duration: Math.random() * 3000 + 2000,
                 easing: 'linear'
             });
-            
+
             animation.onfinish = () => particle.remove();
         }
 
         // Create particles occasionally
         setInterval(createParticle, 2000);
     </script>
+    <script>
+        // Screenshots navigation functionality
+        document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                // Remove active class from all dots
+                document.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
+
+                // Add active class to clicked dot
+                dot.classList.add('active');
+
+                // Highlight corresponding screenshot
+                const screenshots = document.querySelectorAll('.screenshot-item');
+                screenshots.forEach((screenshot, i) => {
+                    if (i === index) {
+                        screenshot.style.transform = 'scale(1.05)';
+                        screenshot.style.zIndex = '10';
+                    } else {
+                        screenshot.style.transform = 'scale(1)';
+                        screenshot.style.zIndex = '1';
+                    }
+                });
+
+                // Reset after animation
+                setTimeout(() => {
+                    screenshots.forEach(screenshot => {
+                        screenshot.style.transform = 'scale(1)';
+                        screenshot.style.zIndex = '1';
+                    });
+                }, 500);
+            });
+        });
+
+        // Auto-rotate screenshots every 5 seconds
+        let currentSlide = 0;
+        setInterval(() => {
+            const dots = document.querySelectorAll('.nav-dot');
+            dots[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % dots.length;
+            dots[currentSlide].classList.add('active');
+            dots[currentSlide].click();
+        }, 5000);
+    </script>
 </body>
+
 </html>
