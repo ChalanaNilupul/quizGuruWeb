@@ -13,6 +13,100 @@
             box-sizing: border-box;
         }
 
+        .nav-linksMob {
+            width: 100%;
+            height: 100vh;
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: fixed;
+            z-index: 100;
+            background-color: #546cfc;
+            left: -100%;
+            top: 0;
+            color: white;
+            transition: 0.5s;
+        }
+        .nav-linksMob.menu-open{
+            left: 0;
+        }
+
+        .nav-linksMob a {
+            text-decoration: none;
+            text-align: center;
+            color: white;
+            font-size: 8vw;
+        }
+
+        .btn-menu {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding-left: 0;
+            padding-right: 0;
+            border: none;
+            background-color: transparent;
+            color: inherit;
+            cursor: pointer;
+            transition: .3s ease;
+        }
+
+        .btn-menu:focus {
+            outline: none;
+        }
+
+        .btn-menu__text {
+            margin-left: 10px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .btn-menu__bars {
+            display: block;
+            position: relative;
+            width: 30px;
+            height: 4px;
+            background-color: var(--primary, #546cfc);
+            transition: .3s;
+        }
+
+        .btn-menu__bars::before,
+        .btn-menu__bars::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary, #546cfc);
+            transition: .3s;
+        }
+
+        .btn-menu__bars::before {
+            transform: translateY(-12px);
+        }
+
+        .btn-menu__bars::after {
+            transform: translateY(12px);
+        }
+
+        /* When a parent has .menu-open, animate the bars into a cross */
+        .menu-open .btn-menu .btn-menu__bars {
+            background-color: transparent;
+        }
+
+        .menu-open .btn-menu .btn-menu__bars::before {
+            transform: rotate(45deg);
+        }
+
+        .menu-open .btn-menu .btn-menu__bars::after {
+            transform: rotate(-45deg);
+        }
+
         :root {
             --primary-orange: #f39000;
             --primary-blue: #546cfc;
@@ -52,6 +146,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
+            z-index: 1000;
         }
 
         .logo {
@@ -476,6 +571,10 @@
                 display: none;
             }
 
+            .btn-menu {
+                display: flex;
+            }
+
             .hero-content {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -701,10 +800,23 @@
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+
+            <button class="btn-menu" type="button" onclick="burger()">
+                <i class="btn-menu__bars" aria-hidden="true"></i>
+                <span class="visually-hidden"></span>
+            </button>
             <!-- <a href="#launch" class="cta-btn">Launch App</a> -->
         </nav>
-    </header>
 
+    </header>
+    <ul class="nav-linksMob" id="nav-linksMob">
+        <div>
+            <li><a href="#home" onclick="burger()">Home</a></li>
+            <li><a href="#features" onclick="burger()">Features</a></li>
+            <li><a href="#how-it-works" onclick="burger()">How It Works</a></li>
+            <li><a href="#contact" onclick="burger()">Contact</a></li>
+        </div>
+    </ul>
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
@@ -1133,6 +1245,20 @@
             dots[currentSlide].classList.add('active');
             dots[currentSlide].click();
         }, 5000);
+
+
+        var btnMenu = document.getElementsByClassName("btn-menu");
+        var body = document.body
+        for (var i = 0; i < btnMenu.length; i++) {
+            btnMenu[i].addEventListener('click', function () {
+                body.classList.toggle('menu-open');
+            });
+        }
+
+        function burger(){
+            var menu = document.getElementById('nav-linksMob');
+            menu.classList.toggle('menu-open');
+        }
     </script>
 </body>
 
