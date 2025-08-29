@@ -1,108 +1,810 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Guru</title>
-    <link rel="shortcut icon" href="./assets/icon.ico" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <title>Quiz Guru - AI-Powered Quiz Generation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/nav.css">
-    <link rel="stylesheet" href="./css/footer.css">
-    <script src="./js/nav.js"></script>
+        :root {
+            --primary-orange: #f39000;
+            --primary-blue: #546cfc;
+            --light-orange: #fff5e6;
+            --light-blue: #e8f0ff;
+            --dark: #1a1a1a;
+            --gray: #666;
+            --light-gray: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        .cta-btn {
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(83, 108, 252, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--light-orange) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23546cfc" opacity="0.1"/><circle cx="80" cy="80" r="2" fill="%23f39000" opacity="0.1"/><circle cx="40" cy="60" r="1" fill="%23546cfc" opacity="0.1"/><circle cx="90" cy="10" r="1" fill="%23f39000" opacity="0.1"/></svg>') repeat;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(83, 108, 252, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInRight 0.8s ease 0.6s both;
+        }
+
+        .quiz-mockup {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-mockup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--primary-blue));
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .quiz-timer {
+            background: var(--light-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        .quiz-question {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-blue);
+            background: var(--light-blue);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--primary-blue));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 5rem 0;
+            background: var(--light-gray);
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-orange);
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-orange);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 1rem;
+            text-align: center;
+            color: #999;
+        }
+
+        /* Floating Elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating:nth-child(2) {
+            animation-delay: 2s;
+        }
+
+        .floating:nth-child(3) {
+            animation-delay: 4s;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-
 <body>
-
-    <div class="mainNav">
-        <div class="navIn">
-            <a onclick="home()" href="" id="Logo"><img src="../assets/logo.png" alt=""></a>
-            <ul id="dokstop">
-                <li><a href="./index.html" class="hM" onclick="menu()">Home</a></li>
-                <li><a href="#about" class="aM" onclick="menu()">About</a></li>
+    <header>
+        <nav class="container">
+            <div class="logo">Quiz Guru</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-            <div id="menu" onclick="menu()">
-                <div class="bar1"></div>
-                <div class="bar2"></div>
-            </div>
-        </div>
-    </div>
+            <a href="#launch" class="cta-btn">Launch App</a>
+        </nav>
+    </header>
 
-    <div class="mobNav" id="mobNav">
-        <div class="links" id="mobLinks">
-            <ul>
-                <li><a href="./index.html" class="hM" onclick="menu()">Home</a></li>
-                <li><a href="#about" class="aM" onclick="menu()">About</a></li>
-            </ul>
-        </div>
-    </div>
-
-
-    <script>
-
-
-        $(document).ready(function () {
-
-
-
-
-        });
-
-    </script>
-
-    <div class="container">
-        <div class="cIn">
-            <div class="left">
-                <div class="lIn">
-                    <h1>Quiz Guru</h1>
-                    <p>Test your knowledge, unlock better grades, and master your subjects all in one app!</p>
-                    <a href="./assets/app-release.apk"><button>Download APK</button></a>
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>AI-Powered Quiz Generation</h1>
+                    <p>Create personalized quizzes instantly with our advanced AI technology. Perfect for students, teachers, and anyone looking to test their knowledge.</p>
+                    <div class="hero-buttons">
+                        <a href="#launch" class="btn-primary">Start Creating Quizzes</a>
+                        <a href="#features" class="btn-secondary">Learn More</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="quiz-mockup floating">
+                        <div class="quiz-header">
+                            <div class="quiz-title">Science Quiz - Grade 8</div>
+                            <div class="quiz-timer">5:42</div>
+                        </div>
+                        <div class="quiz-question">
+                            <strong>Question 3 of 10:</strong><br>
+                            What is the chemical symbol for water?
+                        </div>
+                        <div class="quiz-options">
+                            <div class="quiz-option">A) H2O</div>
+                            <div class="quiz-option">B) CO2</div>
+                            <div class="quiz-option">C) O2</div>
+                            <div class="quiz-option">D) NaCl</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="right">
-                <img src="./assets/phone.png" alt="">
-                <!-- <div class="blob"></div> -->
-            </div>
-
-
         </div>
-    </div>
-    <div class="about" id="about">
-        <div class="aIn">
-            <div class="aleft">
-                <h1>About the app</h1>
-                <p>I'm Chalana Nilupul, co-founder of <a href="https://www.bycfs.com/src/vixo/client/src/" target="new">VIXO</a>, and I created this app to help Ordinary Level students
-                    excel in their studies. The Quiz App offers subject-specific quizzes with real-time grading, making
-                    learning engaging and effective. Please note that the current set of questions is sourced
-                    externally, and I'm working hard to add new questionnaires as soon as possible. Stay
-                    tuned for updates!</p>
-            </div>
-            <div class="aright">
-                <img src="./assets/1.png" alt="">
-                <img src="./assets/2.png" alt="">
-                <img src="./assets/3.png" alt="">
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="scroll-reveal">Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-Generated Questions</h3>
+                    <p>Our advanced AI creates unique, relevant questions tailored to your subject and grade level.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Multiple Grade Levels</h3>
+                    <p>Support for all educational levels from elementary to advanced university courses.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Performance Analytics</h3>
+                    <p>Track progress with detailed analytics and insights to improve learning outcomes.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access your quizzes anywhere, anytime with our responsive design.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Instant Generation</h3>
+                    <p>Generate comprehensive quizzes in seconds, not hours.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3>Easy Sharing</h3>
+                    <p>Share quizzes with students or colleagues with just one click.</p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="footer">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="#536DFE" fill-opacity="1"
-                d="M0,256L48,218.7C96,181,192,107,288,106.7C384,107,480,181,576,197.3C672,213,768,171,864,176C960,181,1056,235,1152,256C1248,277,1344,267,1392,261.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
-    </div>
+    </section>
 
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="scroll-reveal">How It Works</h2>
+            <div class="steps">
+                <div class="step scroll-reveal">
+                    <div class="step-number">1</div>
+                    <h3>Select Grade & Subject</h3>
+                    <p>Choose your target grade level and subject from our comprehensive list of topics.</p>
+                </div>
+                <div class="step scroll-reveal">
+                    <div class="step-number">2</div>
+                    <h3>Click Generate</h3>
+                    <p>Our AI analyzes your requirements and generates relevant questions instantly.</p>
+                </div>
+                <div class="step scroll-reveal">
+                    <div class="step-number">3</div>
+                    <h3>Take the Quiz</h3>
+                    <p>Start your quiz and test your knowledge with engaging, AI-generated questions.</p>
+                </div>
+                <div class="step scroll-reveal">
+                    <div class="step-number">4</div>
+                    <h3>View Results</h3>
+                    <p>Get instant feedback and detailed analytics to track your learning progress.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer>
-        <p>© 2024 Chalana Nilupul | Powered by <a href="https://www.bycfs.com/src/vixo/client/src/" target="new">VIXO</a></p>
-        <p>Contact : <a href="mailto:senarathnacn@gmail.com">senarathnacn@gmail.com</a></p>
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quiz Guru</h4>
+                    <p>Revolutionizing education with AI-powered quiz generation. Making learning interactive and fun for everyone.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#launch">Launch App</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> support@quizguru.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> San Francisco, CA</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Quiz Guru. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-</body>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Quiz mockup interactions
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                document.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.style.background = 'white';
+                    opt.style.borderColor = '#e0e0e0';
+                });
+                
+                // Add active style to clicked option
+                this.style.background = '#e8f0ff';
+                this.style.borderColor = '#546cfc';
+                
+                // Simulate next question after delay
+                setTimeout(() => {
+                    const questions = [
+                        {
+                            text: "What is photosynthesis?",
+                            options: ["A) Plant respiration", "B) Light to energy conversion", "C) Water absorption", "D) Root growth"]
+                        },
+                        {
+                            text: "Which planet is closest to the sun?",
+                            options: ["A) Venus", "B) Mars", "C) Mercury", "D) Earth"]
+                        },
+                        {
+                            text: "What is the speed of light?",
+                            options: ["A) 300,000 km/s", "B) 150,000 km/s", "C) 500,000 km/s", "D) 200,000 km/s"]
+                        }
+                    ];
+                    
+                    const randomQ = questions[Math.floor(Math.random() * questions.length)];
+                    document.querySelector('.quiz-question').innerHTML = `<strong>Question ${Math.floor(Math.random() * 8) + 2} of 10:</strong><br>${randomQ.text}`;
+                    
+                    const optionElements = document.querySelectorAll('.quiz-option');
+                    randomQ.options.forEach((option, index) => {
+                        if (optionElements[index]) {
+                            optionElements[index].textContent = option;
+                            optionElements[index].style.background = 'white';
+                            optionElements[index].style.borderColor = '#e0e0e0';
+                        }
+                    });
+                    
+                    // Update timer
+                    const timerElement = document.querySelector('.quiz-timer');
+                    const currentTime = timerElement.textContent.split(':');
+                    let minutes = parseInt(currentTime[0]);
+                    let seconds = parseInt(currentTime[1]) - Math.floor(Math.random() * 10) - 5;
+                    
+                    if (seconds < 0) {
+                        minutes--;
+                        seconds = 60 + seconds;
+                    }
+                    
+                    if (minutes >= 0) {
+                        timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    }
+                }, 1500);
+            });
+        });
+
+        // Launch app button functionality
+        document.querySelectorAll('a[href="#launch"]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Add your app launch logic here
+                alert('Quiz Guru app is launching soon! Stay tuned for updates.');
+            });
+        });
+
+        // Add some interactive particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = Math.random() * 4 + 2 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = Math.random() > 0.5 ? '#f39000' : '#546cfc';
+            particle.style.borderRadius = '50%';
+            particle.style.opacity = '0.3';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1';
+            
+            document.body.appendChild(particle);
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0px)', opacity: 0.3 },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = () => particle.remove();
+        }
+
+        // Create particles occasionally
+        setInterval(createParticle, 2000);
+    </script>
+</body>
 </html>
