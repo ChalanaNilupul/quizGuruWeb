@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Guru</title>
+    <link rel="shortcut icon" href="./assets/icon.ico" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <script src="./js/nav.js"></script>
+</head>
+
+<body>
+
+    <div class="mainNav">
+        <div class="navIn">
+            <a onclick="home()" href="" id="Logo"><img src="../assets/logo.png" alt=""></a>
+            <ul id="dokstop">
+                <li><a href="./index.html" class="hM" onclick="menu()">Home</a></li>
+                <li><a href="#about" class="aM" onclick="menu()">About</a></li>
+            </ul>
+            <div id="menu" onclick="menu()">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobNav" id="mobNav">
+        <div class="links" id="mobLinks">
+            <ul>
+                <li><a href="./index.html" class="hM" onclick="menu()">Home</a></li>
+                <li><a href="#about" class="aM" onclick="menu()">About</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+
+
+        $(document).ready(function () {
+
+
+
+
+        });
+
+    </script>
+
+    <div class="container">
+        <div class="cIn">
+            <div class="left">
+                <div class="lIn">
+                    <h1>Quiz Guru</h1>
+                    <p>Test your knowledge, unlock better grades, and master your subjects all in one app!</p>
+                    <a href="./assets/app-release.apk"><button>Download APK</button></a>
+                </div>
+            </div>
+            <div class="right">
+                <img src="./assets/phone.png" alt="">
+                <!-- <div class="blob"></div> -->
+            </div>
+
+
+        </div>
+    </div>
+    <div class="about" id="about">
+        <div class="aIn">
+            <div class="aleft">
+                <h1>About the app</h1>
+                <p>Quiz Guru is an AI-powered mobile application designed to help students improve their exam preparation through interactive and static quizzes. Users can select subjects and chapters from school textbooks and attempt quizzes. The app includes an AI question generation tool, built-in chatbot for answering queries and a summarization tool that condenses lessons into concise notes. To make learning more engaging, Quiz Guru incorporates gamification elements such as achievements, and a social “Find Friends” feature with follow options, encouraging collaboration and motivation among students. By combining educational content, AI support, and interactive gamification, Quiz Guru provides a fun, efficient, and accessible learning experience.</p>
+            </div>
+            <div class="aright">
+                <img src="./assets/1.png" alt="">
+                <img src="./assets/2.png" alt="">
+                <img src="./assets/3.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#536DFE" fill-opacity="1"
+                d="M0,256L48,218.7C96,181,192,107,288,106.7C384,107,480,181,576,197.3C672,213,768,171,864,176C960,181,1056,235,1152,256C1248,277,1344,267,1392,261.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
+
+
+    <footer>
+        <p>© 2024 Chalana Nilupul | Powered by <a href="https://www.bycfs.com/src/vixo/client/src/" target="new">VIXO</a></p>
+        <p>Contact : <a href="mailto:senarathnacn@gmail.com">senarathnacn@gmail.com</a></p>
+    </footer>
+
+</body>
+
+</html>
