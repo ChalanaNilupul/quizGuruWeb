@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account - Quiz Guru</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-orange: #f39000;
+            --primary-blue: #546cfc;
+            --light-orange: #fff5e6;
+            --light-blue: #e8f0ff;
+            --dark: #1a1a1a;
+            --gray: #666;
+            --light-gray: #f8f9fa;
+            --danger-red: #dc3545;
+            --light-red: #f8d7da;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, var(--light-blue) 0%, white 50%, var(--light-orange) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 70px;
+        }
+
+        .home-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .home-link:hover {
+            background: var(--light-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem 0;
+            min-height: calc(100vh - 120px);
+        }
+
+        .delete-account-container {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .delete-account-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--danger-red), var(--primary-orange));
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        .warning-box {
+            background: var(--light-red);
+            border: 2px solid var(--danger-red);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .warning-icon {
+            font-size: 2rem;
+            color: var(--danger-red);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .warning-box h3 {
+            color: var(--danger-red);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .warning-box p {
+            color: var(--dark);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .info-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-section i {
+            color: var(--primary-blue);
+        }
+
+        .deletion-steps {
+            background: var(--light-gray);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content strong {
+            color: var(--dark);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .email-highlight {
+            background: var(--light-blue);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .data-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .data-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--primary-blue));
+        }
+
+        .data-card i {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .data-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, var(--light-blue), var(--light-orange));
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark);
+        }
+
+        .contact-item i {
+            color: var(--primary-blue);
+        }
+
+        .btn-email {
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-blue));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .btn-email:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(83, 108, 252, 0.4);
+        }
+
+        .timeline {
+            background: var(--light-gray);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .timeline h3 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content strong {
+            color: var(--dark);
+            display: block;
+        }
+
+        .timeline-content span {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 1rem;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .delete-account-container {
+                padding: 2rem 1.5rem;
+                margin: 1rem 0;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .data-info {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .timeline-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="../assets/logo.png" alt="Quiz Guru Logo" style="width: 70px;">
+            </div>
+            <a href="../index.html" class="home-link">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="delete-account-container fade-in">
+                <div class="page-header">
+                    <h1><i class="fas fa-user-slash"></i> Account Deletion Request</h1>
+                    <p>We respect your privacy and give you full control over your account and data</p>
+                </div>
+
+                <div class="warning-box pulse">
+                    <div class="warning-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Important Notice</h3>
+                    <p><strong>Account deletion is permanent and cannot be undone.</strong></p>
+                    <p>All your quiz history, progress, and saved results will be permanently removed.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2><i class="fas fa-envelope"></i> How to Request Account Deletion</h2>
+                    <div class="deletion-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Send an Email</strong>
+                                Send an email to <span class="email-highlight">support@quizguru.lk</span> using the same email address linked to your Quiz Guru account.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Include Subject Line</strong>
+                                Use the subject line: <strong>"Delete My Quiz Guru Account"</strong>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Provide Account Details</strong>
+                                Include your username or any other account identifiers to help us locate your account quickly.
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <strong>Await Confirmation</strong>
+                                We'll send you a confirmation email within 24 hours and complete the deletion within 7 days.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2><i class="fas fa-database"></i> What Data Will Be Deleted</h2>
+                    <div class="data-info">
+                        <div class="data-card">
+                            <i class="fas fa-user"></i>
+                            <h4>Account Information</h4>
+                            <p>Email, display name, login credentials, and profile settings</p>
+                        </div>
+                        <div class="data-card">
+                            <i class="fas fa-chart-bar"></i>
+                            <h4>Quiz History</h4>
+                            <p>All quiz attempts, scores, progress tracking, and performance analytics</p>
+                        </div>
+                        <div class="data-card">
+                            <i class="fas fa-bookmark"></i>
+                            <h4>Saved Content</h4>
+                            <p>Bookmarked quizzes, custom quizzes, and saved study materials</p>
+                        </div>
+                        <div class="data-card">
+                            <i class="fas fa-file-pdf"></i>
+                            <h4>PDF Summaries</h4>
+                            <p>All uploaded PDFs and generated summaries will be permanently removed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2><i class="fas fa-shield-alt"></i> Data Retention Information</h2>
+                    <div class="timeline">
+                        <h3>Deletion Timeline</h3>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <strong>Request Received</strong>
+                                <span>We'll acknowledge your deletion request within 24 hours</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <strong>Account Deletion</strong>
+                                <span>Your account and personal data will be deleted within 7 days</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <strong>Backup Removal</strong>
+                                <span>All backup and cached data will be permanently removed within 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box" style="background: var(--light-blue); border-color: var(--primary-blue);">
+                        <div class="warning-icon">
+                            <i class="fas fa-info-circle" style="color: var(--primary-blue);"></i>
+                        </div>
+                        <h3 style="color: var(--primary-blue);">Data We May Retain</h3>
+                        <p>Non-identifiable, anonymized usage statistics may be retained for app performance analytics and improvement purposes. This data cannot be linked back to your identity.</p>
+                    </div>
+                </div>
+
+                <div class="contact-section">
+                    <h2><i class="fas fa-headset"></i> Need Help?</h2>
+                    <p>If you have questions about account deletion or need assistance, we're here to help.</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>support@quizguru.lk</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+94 XXXXXXXXX</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Response within 24 hours</span>
+                        </div>
+                    </div>
+
+                    <a href="mailto:support@quizguru.lk?subject=Delete My Quiz Guru Account" class="btn-email">
+                        <i class="fas fa-envelope"></i> Send Deletion Request
+                    </a>
+                </div>
+
+                <div class="info-section">
+                    <h2><i class="fas fa-undo"></i> Alternative Options</h2>
+                    <p style="margin-bottom: 1rem;">Before deleting your account permanently, consider these alternatives:</p>
+                    
+                    <div class="data-info">
+                        <div class="data-card">
+                            <i class="fas fa-pause"></i>
+                            <h4>Temporary Deactivation</h4>
+                            <p>Temporarily disable your account while keeping your data safe</p>
+                        </div>
+                        <div class="data-card">
+                            <i class="fas fa-download"></i>
+                            <h4>Data Export</h4>
+                            <p>Request a copy of your quiz history and progress before deletion</p>
+                        </div>
+                        <div class="data-card">
+                            <i class="fas fa-cog"></i>
+                            <h4>Privacy Settings</h4>
+                            <p>Adjust your privacy settings instead of full account deletion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../privacy.html">Privacy Policy</a>
+                    <a href="../terms.html">Terms of Service</a>
+                    <a href="mailto:support@quizguru.lk">Contact Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Quiz Guru. All rights reserved. | Account deletion requests processed within 7 days</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation to elements when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should animate
+        document.querySelectorAll('.data-card, .step, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Email button click tracking
+        document.querySelector('.btn-email').addEventListener('click', function() {
+            // You can add analytics tracking here if needed
+            console.log('Delete account email button clicked');
+        });
+
+        // Add some interactive floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = Math.random() * 4 + 2 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = Math.random() > 0.5 ? '#f39000' : '#546cfc';
+            particle.style.borderRadius = '50%';
+            particle.style.opacity = '0.1';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1';
+
+            document.body.appendChild(particle);
+
+            const animation = particle.animate([
+                { transform: 'translateY(0px)', opacity: 0.1 },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 4000 + 3000,
+                easing: 'linear'
+            });
+
+            animation.onfinish = () => particle.remove();
+        }
+
+        // Create particles occasionally
+        setInterval(createParticle, 3000);
+    </script>
+</body>
+
+</html>
