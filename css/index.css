@@ -13,7 +13,7 @@ html {
 
 body {}
 
-.container {
+.containerr {
   width: 100%;
   height: 90vh;
   display: flex;
@@ -162,7 +162,7 @@ body {}
 }
 
 @media only screen and (max-width: 912px) {
-  .container {
+  .containerr {
     display: block;
     height: fit-content;
   }
@@ -213,5 +213,211 @@ body {}
 
   .aright img {
     width: 100%;
+  }
+}
+
+/* Animation Section Styles */
+.animations {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.animations h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+.animations .section-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  margin-bottom: 60px;
+  font-size: 1.1rem;
+}
+
+.animation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.animation-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.animation-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.animation-card h3 {
+  color: white;
+  margin: 20px 0 15px 0;
+  font-size: 1.3rem;
+}
+
+.animation-card p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.floating-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 2rem;
+  color: white;
+  animation: float 3s ease-in-out infinite;
+  position: relative;
+}
+
+.floating-icon i {
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: float-dot 6s ease-in-out infinite;
+}
+
+.dot-1 {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  top: 60%;
+  left: 80%;
+  animation-delay: 1s;
+}
+
+.dot-3 {
+  top: 80%;
+  left: 20%;
+  animation-delay: 2s;
+}
+
+.dot-4 {
+  top: 30%;
+  left: 70%;
+  animation-delay: 3s;
+}
+
+.dot-5 {
+  top: 70%;
+  left: 40%;
+  animation-delay: 4s;
+}
+
+@keyframes float-dot {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design for Animation Section */
+@media only screen and (max-width: 768px) {
+  .animation-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .animations h2 {
+    font-size: 2rem;
+  }
+  
+  .floating-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .animation-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .animations {
+    padding: 60px 0;
   }
 }

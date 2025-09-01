@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Guru - AI-Powered Quiz Generation</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
     <style>
         * {
             margin: 0;
@@ -797,6 +798,8 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
+                <li><a href="#screenshots">Screenshots</a></li>
+                <!-- <li><a href="#animations">Animations</a></li> -->
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -813,6 +816,8 @@
         <div>
             <li><a href="#home" onclick="burger()">Home</a></li>
             <li><a href="#features" onclick="burger()">Features</a></li>
+            <li><a href="#screenshots" onclick="burger()">Screenshots</a></li>
+            <!-- <li><a href="#animations" onclick="burger()">Animations</a></li> -->
             <li><a href="#how-it-works" onclick="burger()">How It Works</a></li>
             <li><a href="#contact" onclick="burger()">Contact</a></li>
         </div>
@@ -991,6 +996,59 @@
         </div>
     </section>
 
+    <!-- <section id="animations" class="animations">
+        <div class="containerr">
+            <h2 class="scroll-reveal">Interactive Experience</h2>
+            <p class="section-subtitle scroll-reveal">Discover the magic behind Quiz Guru's innovative features</p>
+            
+            <div class="animation-grid">
+                <div class="animation-card scroll-reveal" data-aos="fade-up">
+                    <div class="floating-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Intelligence</h3>
+                    <p>Advanced algorithms that understand your learning needs</p>
+                    <div class="pulse-ring"></div>
+                </div>
+                
+                <div class="animation-card scroll-reveal" data-aos="fade-up" data-aos-delay="200">
+                    <div class="floating-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Generate quizzes in seconds with our optimized engine</p>
+                    <div class="pulse-ring"></div>
+                </div>
+                
+                <div class="animation-card scroll-reveal" data-aos="fade-up" data-aos-delay="400">
+                    <div class="floating-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Smart Analytics</h3>
+                    <p>Track progress and identify areas for improvement</p>
+                    <div class="pulse-ring"></div>
+                </div>
+                
+                <div class="animation-card scroll-reveal" data-aos="fade-up" data-aos-delay="600">
+                    <div class="floating-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Learning</h3>
+                    <p>Connect with fellow learners and share knowledge</p>
+                    <div class="pulse-ring"></div>
+                </div>
+            </div>
+            
+            <div class="floating-elements">
+                <div class="floating-dot dot-1"></div>
+                <div class="floating-dot dot-2"></div>
+                <div class="floating-dot dot-3"></div>
+                <div class="floating-dot dot-4"></div>
+                <div class="floating-dot dot-5"></div>
+            </div>
+        </div>
+    </section> -->
+
     <section id="how-it-works" class="how-it-works">
         <div class="container">
             <h2 class="scroll-reveal">How It Works</h2>
@@ -1045,6 +1103,7 @@
                     <a href="#">Help Center</a>
                     <a href="#">Privacy Policy</a>
                     <a href="#">Terms of Service</a>
+                     <a href="./url/deleteAccount.html">Request Delete Account</a>
                     <a href="#">Contact Us</a>
                 </div>
                 <div class="footer-section">
@@ -1259,6 +1318,69 @@
             var menu = document.getElementById('nav-linksMob');
             menu.classList.toggle('menu-open');
         }
+
+        // Animation section interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const animationCards = document.querySelectorAll('.animation-card');
+            
+            // Add hover effects and click animations
+            animationCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.05)';
+                    this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.2)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.1)';
+                });
+                
+                card.addEventListener('click', function() {
+                    // Add click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 150);
+                    }, 150);
+                });
+            });
+
+            // Parallax effect for floating elements
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.floating-dot');
+                
+                parallaxElements.forEach((element, index) => {
+                    const speed = 0.5 + (index * 0.1);
+                    const yPos = -(scrolled * speed);
+                    element.style.transform = `translateY(${yPos}px)`;
+                });
+            });
+
+            // Add entrance animations for cards
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            animationCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
     </script>
 </body>
 
